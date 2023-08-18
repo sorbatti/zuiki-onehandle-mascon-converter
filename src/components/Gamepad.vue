@@ -9,6 +9,7 @@
     let nIntervId;
     let pushButtonList = [];
     let pressButtonList = [];
+    let directionButton = 0;
     let knotchLevel = 0;
     let accelLevel = 0;
     let brakeLevel = 0;
@@ -220,14 +221,15 @@
 
         pushButtonList = [];
         
+        /// ※ZKNS-002の配置
         if (controller.buttons[0].pressed) {
-            pushButtonList.push('B')
+            pushButtonList.push('Y')
         }
         if (controller.buttons[1].pressed) {
-            pushButtonList.push('A')
+            pushButtonList.push('B')
         }
         if (controller.buttons[2].pressed) {
-            pushButtonList.push('Y')
+            pushButtonList.push('A')
         }
         if (controller.buttons[3].pressed) {
             pushButtonList.push('X')
@@ -251,22 +253,34 @@
             pushButtonList.push('PLUS')
         }
         if (controller.buttons[12].pressed) {
-            pushButtonList.push('UP')
-        }
-        if (controller.buttons[13].pressed) {
-            pushButtonList.push('DOWN')
-        }
-        if (controller.buttons[14].pressed) {
-            pushButtonList.push('LEFT')
-        }
-        if (controller.buttons[15].pressed) {
-            pushButtonList.push('RIGHT')
-        }
-        if (controller.buttons[16].pressed) {
             pushButtonList.push('HOME')
         }
-        if (controller.buttons[17].pressed) {
+        if (controller.buttons[13].pressed) {
             pushButtonList.push('CAPTURE')
+        }
+
+        /// UP: -1
+        /// RIGHT: -0.4285714030265808
+        /// DOWN: 0.14285719394683838
+        /// LEFT: 0.7142857313156128
+
+        directionButton = controller.axes[9]
+
+        switch(true) {
+            case directionButton <= -1:
+                pushButtonList.push('UP');
+                break;
+            case directionButton <= -0.40:
+                pushButtonList.push('RIGHT');
+                break;
+            case directionButton <= 0.15:
+                pushButtonList.push('DOWN');
+                break;
+            case directionButton <= 0.75:
+                pushButtonList.push('LEFT');
+                break;
+            default:
+                break;
         }
         
         knotchLevel = controller.axes[1]
