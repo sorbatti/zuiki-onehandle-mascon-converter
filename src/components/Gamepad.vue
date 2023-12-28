@@ -240,9 +240,6 @@
         if (controller.buttons[5].pressed) {
             pushButtonList.push('R')
         }
-        if (controller.buttons[6].pressed) {
-            pushButtonList.push('ZL')
-        }
         if (controller.buttons[7].pressed) {
             pushButtonList.push('ZR')
         }
